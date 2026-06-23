@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/aow3-gacha/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AOW3 Gacha Simulator</title>
+    <script type="module" crossorigin src="/aow3-gacha/assets/index-DmYsSxCJ.js"></script>
+    <link rel="stylesheet" crossorigin href="/aow3-gacha/assets/index-X_YruiTj.css">
+  </head>
+  <body>
+    <div id="app">
+      <div id="bg-layer">
+        <div id="bg-image"></div>
+        <div id="stars"></div>
+        <div id="hex-grid"></div>
+        <div id="scanlines"></div>
+      </div>
+
+      <header id="top-bar">
+        <div class="title-section">
+          <h1 id="el-title">КОМАНДНЫЙ СОСТАВ</h1>
+          <span class="subtitle" id="el-subtitle">☆ ОПЕРАЦИИ БЛИЖНЕГО БУДУЩЕГО ☆</span>
+        </div>
+        <div class="top-actions">
+          <button id="toggle-sfx" class="audio-toggle" title="Sound Effects"><span id="el-toggle-sfx">SFX</span></button>
+          <button id="toggle-music" class="audio-toggle music-btn" title="Music">
+            <span class="music-btn-label" id="el-music-label">С музыкой крутить веселее!</span>
+            <span class="music-btn-icons">
+              <span class="music-bars"><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span></span>
+              <span class="music-text">♫</span>
+            </span>
+          </button>
+          <button id="lang-toggle">EN</button>
+          <div class="currency-section">
+            <img src="/aow3-gacha/images/credits.webp" alt="Credits" class="currency-icon" />
+            <span id="currency-amount">5000</span>
+            <span class="currency-label" id="el-credits">КРЕДИТЫ</span>
+          </div>
+        </div>
+      </header>
+
+      <main id="main-content">
+        <div id="banner-section">
+          <div class="banner-frame">
+            <div class="banner-glow"></div>
+            <div class="banner-content">
+              <div class="banner-art">
+                <img src="/aow3-gacha/images/banner.webp" alt="Banner" class="banner-img" />
+              </div>
+              <div class="banner-info">
+                <h2 class="banner-name" id="el-banner-name">БАЗА ДАННЫХ ЛИЧНОГО СОСТАВА</h2>
+                <div class="banner-rarity-indicators">
+                  <span class="rarity-dot s">S</span>
+                  <span class="rarity-dot a">A</span>
+                  <span class="rarity-dot b">B</span>
+                </div>
+                <p class="banner-desc" id="el-banner-desc">Просмотр и найм квалифицированного персонала для специальных операций. Все кандидаты прошли предварительный отбор.</p>
+                <div class="banner-stats">
+                  <div class="stat"><span class="stat-label" id="el-s-rate">Шанс S</span><span class="stat-value gold">10%</span></div>
+                  <div class="stat"><span class="stat-label" id="el-a-rate">Шанс A</span><span class="stat-value purple">30%</span></div>
+                  <div class="stat"><span class="stat-label" id="el-b-rate">Шанс B</span><span class="stat-value blue">60%</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="pull-section">
+          <button class="pull-btn" data-pulls="1">
+            <span class="btn-label" id="el-btn-1x">НАЙМ 1×</span>
+            <span class="btn-cost">◆ 100</span>
+          </button>
+          <button class="pull-btn primary" data-pulls="10">
+            <span class="btn-label" id="el-btn-10x">НАЙМ 10×</span>
+            <span class="btn-cost">◆ 1000</span>
+          </button>
+        </div>
+      </main>
+
+      <div id="pull-overlay" class="hidden">
+        <div id="pull-overlay-bg"></div>
+        <div id="pull-overlay-content">
+          <div id="access-phase">
+            <div class="access-text" id="el-access">ДОСТУП К АРХИВУ</div>
+            <div class="loader-bar" id="loader-bar"><div class="loader-fill" id="loader-fill"></div></div>
+            <div class="access-sub" id="el-decrypt">Расшифровка личных дел...</div>
+            <div id="hint-s-rank" class="hint-s-rank hidden"><span id="el-hint-s">⚠ ОБНАРУЖЕН ТОП-КЛАСС СПЕЦИАЛИСТ</span></div>
+          </div>
+
+          <div id="reveal-phase" class="hidden">
+            <button id="btn-skip-all" class="skip-all-btn" title="Skip all"><span id="el-skip-all">ПРОПУСТИТЬ ВСЕ</span></button>
+            <div class="reveal-split">
+              <div class="reveal-image-area">
+                <div class="reveal-image-wrapper" id="reveal-wrapper">
+                  <img id="reveal-img" src="" alt="" />
+                  <div class="reveal-image-shine"></div>
+                </div>
+              </div>
+              <div class="reveal-text-area">
+                <div class="reveal-rarity-badge" id="reveal-rarity">S</div>
+                <div class="reveal-quote" id="reveal-quote"></div>
+                <div class="reveal-counter" id="reveal-counter">1 / 1</div>
+              </div>
+            </div>
+          </div>
+
+          <div id="pack-phase" class="hidden">
+            <div class="pack-header">
+              <span class="pack-title">◈ PERSONNEL ACQUIRED ◈</span>
+              <span class="pack-subtitle" id="el-pack-subtitle">Личный состав получен</span>
+            </div>
+            <div id="pack-container"></div>
+            <div id="result-actions" class="hidden">
+              <button id="btn-screenshot" title="Screenshot">📷</button>
+              <button id="btn-continue" class="pull-btn primary"><span id="el-continue">ПРОДОЛЖИТЬ</span></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="rarity-flash" class="hidden"></div>
+    </div>
+
+    <div id="credit-modal" class="hidden">
+      <div id="credit-modal-bg"></div>
+      <div id="credit-modal-content">
+        <div class="modal-icon">◆</div>
+        <p class="modal-text" id="el-modal-text">Командир, у вас кончились Кредиты!<br/>Сыграйте бой в Art of War 3, чтобы обновить их!</p>
+        <div class="modal-actions">
+          <button id="btn-to-battle" class="modal-btn primary"><span id="el-modal-btn">В БОЙ!</span></button>
+          <button id="btn-modal-close" class="modal-btn secondary"><span id="el-modal-cancel">ОТМЕНА</span></button>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>
